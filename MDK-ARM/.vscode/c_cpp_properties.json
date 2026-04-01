@@ -3,17 +3,17 @@
         {
             "name": "23H_T",
             "includePath": [
-                "d:\\STM\\project\\F4\\23H_T\\Core\\Inc",
-                "d:\\STM\\project\\F4\\23H_T\\Drivers\\STM32F4xx_HAL_Driver\\Inc",
-                "d:\\STM\\project\\F4\\23H_T\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy",
-                "d:\\STM\\project\\F4\\23H_T\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include",
-                "d:\\STM\\project\\F4\\23H_T\\Drivers\\CMSIS\\Include",
-                "d:\\STM\\project\\F4\\23H_T\\Middlewares\\ST\\ARM\\DSP\\Inc",
-                "d:\\STM\\project\\F4\\23H_T\\hardware",
-                "d:\\STM\\project\\F4\\23H_T\\MDK-ARM",
-                "d:\\STM\\project\\F4\\23H_T\\Core\\Src",
-                "d:\\STM\\project\\F4\\23H_T\\Drivers\\STM32F4xx_HAL_Driver\\Src",
-                "d:\\STM\\project\\F4\\23H_T\\Middlewares\\ST\\ARM\\DSP\\Lib"
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Core\\Inc",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Drivers\\STM32F4xx_HAL_Driver\\Inc",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Drivers\\CMSIS\\Include",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Middlewares\\ST\\ARM\\DSP\\Inc",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\hardware",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\MDK-ARM",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Core\\Src",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Drivers\\STM32F4xx_HAL_Driver\\Src",
+                "d:\\STM\\project\\F4\\2023H\\23H_T\\Middlewares\\ST\\ARM\\DSP\\Lib"
             ],
             "defines": [
                 "USE_HAL_DRIVER",
