@@ -1,0 +1,10 @@
+23h_t\bayesfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\BayesFunctions\BayesFunctions.c
+23h_t\bayesfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\BayesFunctions\arm_gaussian_naive_bayes_predict_f32.c
+23h_t\bayesfunctions.o: ../Middlewares/ST/ARM/DSP/Inc/arm_math.h
+23h_t\bayesfunctions.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+23h_t\bayesfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\stdint.h
+23h_t\bayesfunctions.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+23h_t\bayesfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\string.h
+23h_t\bayesfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\math.h
+23h_t\bayesfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\float.h
+23h_t\bayesfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\limits.h

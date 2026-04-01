@@ -1,0 +1,17 @@
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\SVMFunctions.c
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\arm_svm_linear_init_f32.c
+23h_t\svmfunctions.o: ../Middlewares/ST/ARM/DSP/Inc/arm_math.h
+23h_t\svmfunctions.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+23h_t\svmfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\stdint.h
+23h_t\svmfunctions.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+23h_t\svmfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\string.h
+23h_t\svmfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\math.h
+23h_t\svmfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\float.h
+23h_t\svmfunctions.o: D:\STM\KEIL\v\ARM\ARMCC\Bin\..\include\limits.h
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\arm_svm_linear_predict_f32.c
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\arm_svm_polynomial_init_f32.c
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\arm_svm_polynomial_predict_f32.c
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\arm_svm_rbf_init_f32.c
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\arm_svm_rbf_predict_f32.c
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\arm_svm_sigmoid_init_f32.c
+23h_t\svmfunctions.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\SVMFunctions\arm_svm_sigmoid_predict_f32.c

@@ -1,0 +1,413 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include "adc.h"
+#include "dac.h"
+#include "dma.h"
+#include "tim.h"
+#include "usart.h"
+#include "gpio.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <string.h>
+#include "math.h"
+#include "arm_math.h"
+#include "arm_const_structs.h"
+#include "FFT.h"
+#include "Config.h"
+#include "intimDAC.h"
+
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+void DataSolve_Same(void);
+void DataSolve_Different(void);
+
+uint8_t adcflag = 0,wave_flag = 0;
+
+uint16_t ADC_Value[NPT]	= {0};
+float FFT_in[ NPT*2 ] = {0};
+float FFT_out[ NPT/2 ];
+float ADC_Float[ NPT ] = {0};
+
+float FFT_Out_wave1 = 0.0;
+float FFT_Out_wave2 = 0.0;
+float FFT_Out_3_wave1 = 0.0;
+float FFT_Out_3_wave2 = 0.0;
+float FFT_Out_5_wave1 = 0.0;
+float FFT_Out_5_wave2 = 0.0;
+
+int based_wave1_state = 0;
+int based_wave2_state = 0;  //1-----正弦波；2-----三角波
+
+int wave1_index = 1;
+int wave2_index = 1;
+
+uint32_t wave1_Freq = 0;
+uint32_t wave2_Freq = 0;
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+
+uint16_t SinArray[MAX_WAVE_LENGTH];  // 给 DAC1 (TIM2) 用
+uint16_t SinArray2[MAX_WAVE_LENGTH]; // 给 DAC2 (TIM4) 用 
+
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_DMA_Init();
+  MX_ADC1_Init();
+  MX_TIM3_Init();
+  MX_USART1_UART_Init();
+  MX_DAC_Init();
+  MX_TIM2_Init();
+  MX_TIM4_Init();
+  /* USER CODE BEGIN 2 */
+	printf("START\r\n");
+	HAL_TIM_Base_Start(&htim3);
+	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&ADC_Value,NPT);	
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+		if(adcflag==1)
+		{
+       //adc标志位、波形频率位初始化
+ 			adcflag=0;
+ 			wave_flag=0;
+
+       //波形的频率索引、类型初始化
+ 			wave1_index=1;
+ 			wave2_index=1;
+ 			based_wave1_state=0;
+ 			based_wave2_state=0;
+
+ 			HAL_TIM_Base_Stop(&htim3);
+ 			HAL_ADC_Stop_DMA(&hadc1);
+			
+ 			FFT_test(); //FFT变换并计算幅值
+			
+ 			printf("\r\nFFT\r\n");	//输出FFT结果
+
+ 			for(int i=0;i < NPT / 2;i++)
+ 			{
+ 				printf("%.1f , ",FFT_out[i]);
+ 			}			
+
+ 			printf("\r\nFFT_OVER\r\n");				
+			
+ 			wave_flag = find_peak();
+			
+ /*=============================两者频率相同================================*/
+ 			if( wave_flag == 1)     
+ 			{
+ 				DataSolve_Same();
+ 				wave2_index = wave1_index;
+				
+ 				if(20 - range <= wave1_index && wave1_index <= 100 + range)  //****************频率大于20Khz且小于100kHz*************
+ 				{
+          //查看三倍频点位置的幅值
+          FFT_Out_3_wave1 = Find_Wave_Amp(wave1_index, 3);
+          printf("FFT_Out_3_wave1 = %.1f\r\n", FFT_Out_3_wave1);
+ 					if(FFT_Out_3_wave1 > 30000)  //FFT_out[wave1_index * 5] > 20000  //三角+三角
+ 					{
+ 						based_wave1_state = based_wave2_state=2; 
+ 					}
+ 					else if(FFT_Out_3_wave1 > 15000) //FFT_out[wave1_index * 5] > 9000 //正弦+三角
+ 					{
+ 						based_wave1_state = 1;
+ 						based_wave2_state = 2;
+ 					}
+ 					else
+ 					{
+ 						based_wave1_state = based_wave2_state = 1;  //正弦+正弦
+ 					}
+ 				}
+ 				else //***********************频率大于100kHz或者频率小于20kHz*************************
+ 				{
+ 					printf("wave_same wrong \r\n");
+ 				}
+ 			}
+/*=============================普遍情况，两者频率不相同================================*/
+			else     
+			{
+				DataSolve_Different();
+				if(20 - range <= wave1_index && wave1_index <= 100 + range && 20 - range <= wave2_index &&  wave2_index <= 100 + range )  //********************频率均大于20kHz且小于100kHz并在误差范围内*******************
+				{
+          FFT_Out_3_wave1 = Find_Wave_Amp(wave1_index, 3);
+          FFT_Out_3_wave2 = Find_Wave_Amp(wave2_index, 3);
+          FFT_Out_5_wave1 = Find_Wave_Amp(wave1_index, 5);
+          FFT_Out_5_wave2 = Find_Wave_Amp(wave2_index, 5);
+          
+          printf("FFT_Out_wave1 = %.1f, FFT_Out_wave2 = %.1f\r\n", FFT_Out_wave1,FFT_Out_wave2);
+          printf("FFT_Out_3_wave1 = %.1f, FFT_Out_3_wave2 = %.1f\r\n", FFT_Out_3_wave1, FFT_Out_3_wave2);
+          printf("FFT_Out_5_wave1 = %.1f, FFT_Out_5_wave2 = %.1f\r\n", FFT_Out_5_wave1, FFT_Out_5_wave2);
+
+					if(wave2_index != 3 * wave1_index)//普遍情况 不是恰好三倍 
+					{
+            printf("not 3\r\n");
+						if( fabs(FFT_Out_wave1 / 9.0f - FFT_Out_3_wave1 ) < 15000 && FFT_Out_wave1 > FFT_Out_3_wave1)
+						{
+							based_wave1_state = 2;  //wave1三角
+						}
+						else{based_wave1_state = 1;}  //wave1正弦
+						
+						if( fabs(FFT_Out_wave2 /9.0f - FFT_Out_3_wave2 ) < 15000 && FFT_Out_wave2 > FFT_Out_3_wave2 &&  FFT_Out_3_wave2 > FFT_Out_5_wave2)
+						{
+							based_wave2_state = 2;  //wave2三角
+						}
+						else{based_wave2_state = 1;}  //wave2正弦
+					}
+					else//恰好三倍 
+					{
+						if( fabs(FFT_Out_wave2 / 9.0f - FFT_Out_3_wave2 ) < 10000 && FFT_Out_wave2 > FFT_Out_3_wave2 &&  FFT_Out_3_wave2 > FFT_Out_5_wave2)
+						{
+							based_wave2_state = 2;//wave2三角
+						}
+						else{based_wave2_state = 1;}//wave2正弦
+						
+						if( fabs(FFT_Out_wave1 / 25.0f - FFT_Out_5_wave1) < 5000 )
+						{
+							based_wave1_state = 2;//wave1三角
+						}
+						else{based_wave1_state = 1;}//wave1正弦
+					}
+				}
+        else //***********************频率大于100kHz或者频率小于20kHz*************************
+ 				{
+ 					printf("wave_different wrong \r\n");
+ 				}
+			}
+			
+/*==========================================================*/			
+			//1-----正弦波；2-----三角波
+			wave1_Freq = wave1_index * 1000;
+			wave2_Freq = wave2_index * 1000;
+			
+      printf("wave1:%d    Fre:%d kHz\r\n",based_wave1_state,wave1_index);
+			printf("wave2:%d    Fre:%d kHz\r\n",based_wave2_state,wave2_index);
+			
+			// Set_DAC_Waveform_AutoHighRes(wave1_Freq, 90.0f, based_wave1_state);
+			// Set_DAC2_Waveform_AutoHighRes(wave2_Freq, 0.0f, based_wave2_state);
+			// printf("DAC Init Over\r\n");
+			
+			HAL_Delay(10000);
+			HAL_TIM_Base_Start(&htim3);
+			HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&ADC_Value,NPT);
+		}
+
+  }
+  /* USER CODE END 3 */
+}
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  /** Configure the main internal regulator output voltage
+  */
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = 4;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/* USER CODE BEGIN 4 */
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+  if(hadc == &hadc1)
+  {
+    adcflag = 1; // Handle ADC conversion complete event
+  }
+}
+/*处理相同频率的信号*/
+void DataSolve_Same(void)
+{
+	printf("/*==========same=============*/\r\n");
+	for(int j = 20 - range;j <= 100 + range; j++)
+	{
+		if(FFT_out[wave1_index] < FFT_out[j]) 
+		{
+			wave1_index = j;            // 更新最大值索引
+		} 
+	}
+	FFT_Out_wave1 = FFT_out[wave1_index];
+	int wave_now_index = wave1_index;
+	wave1_index = wave_set(wave_now_index);
+	printf("wave_index %d to %d\r\n",wave_now_index,wave1_index);
+}
+/*处理不同频率信号*/
+void DataSolve_Different(void)
+{
+	printf("/*=========different==========*/\r\n");
+	for(int j = 20 - range; j <= 100 + range; j++) 
+	{
+		if(FFT_out[wave1_index] < FFT_out[j]) 
+		{
+			wave2_index = wave1_index;  // 原最大值变成次大值
+			wave1_index = j;            // 更新最大值索引
+		} 
+		else if(FFT_out[wave2_index] < FFT_out[j] && j != wave1_index) 
+		{
+			wave2_index = j;  // 更新次大值索引
+		}	 
+	}
+	if(wave2_index < wave1_index) //保证wave1索引小于wave2索引
+	{
+		int t;
+		t = wave1_index;
+		wave1_index = wave2_index;
+		wave2_index = t;
+	}
+  FFT_Out_wave1 = FFT_out[wave1_index];
+  FFT_Out_wave2 = FFT_out[wave2_index];
+  int wave1_now_index = wave1_index;
+	int wave2_now_index = wave2_index;
+	wave1_index = wave_set(wave1_now_index);
+	wave2_index = wave_set(wave2_now_index);
+  printf("wave1_index %d to %d,wave2_index %d to %d\r\n",wave1_now_index,wave1_index,wave2_now_index,wave2_index);
+}
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+  __disable_irq();
+  while (1)
+  {
+  }
+  /* USER CODE END Error_Handler_Debug */
+}
+#ifdef USE_FULL_ASSERT
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
+}
+#endif /* USE_FULL_ASSERT */
