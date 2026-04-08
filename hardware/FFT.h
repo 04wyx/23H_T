@@ -11,9 +11,10 @@
 #include "arm_const_structs.h"
 #include "Config.h"
 
-extern float FFT_in[ NPT*2 ];
-extern float FFT_out[ NPT/2 ];
+extern float FFT_in[ NPT * 2 ];
+extern float FFT_out[ NPT / 2 ];
 extern float ADC_Float[ NPT ];
+extern float FFT_Phase[ NPT / 2];
 extern uint16_t ADC_Value[ NPT ];
 
 int find_peak(void);

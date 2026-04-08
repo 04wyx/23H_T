@@ -51,6 +51,6 @@
 23h_t\main.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_const_structs.h
 23h_t\main.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_math.h
 23h_t\main.o: D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_common_tables.h
-23h_t\main.o: ..\hardware\FFT.h
-23h_t\main.o: ..\hardware\Config.h
-23h_t\main.o: ..\hardware\intimDAC.h
+23h_t\main.o: ../hardware/FFT.h
+23h_t\main.o: ../hardware/Config.h
+23h_t\main.o: ../hardware/intimDAC.h

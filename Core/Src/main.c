@@ -48,8 +48,9 @@ uint8_t adcflag = 0,wave_flag = 0;
 
 uint16_t ADC_Value[NPT]	= {0};
 float FFT_in[ NPT*2 ] = {0};
-float FFT_out[ NPT/2 ];
+float FFT_out[ NPT/2 ] = {0};
 float ADC_Float[ NPT ] = {0};
+float FFT_Phase[NPT / 2] = {0}; // 存储每个频率点的相位 (单位：弧度)
 
 float FFT_Out_wave1 = 0.0;
 float FFT_Out_wave2 = 0.0;
@@ -67,6 +68,8 @@ int wave2_index = 1;
 uint32_t wave1_Freq = 0;
 uint32_t wave2_Freq = 0;
 
+float phase1 = 0;
+float phase2 = 0;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -130,15 +133,18 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_ADC1_Init();
-  MX_TIM3_Init();
-  MX_USART1_UART_Init();
   MX_DAC_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
   MX_TIM4_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+	LED_BLUE_Off;
+	LED_GREEN_Off;
 	printf("START\r\n");
 	HAL_TIM_Base_Start(&htim3);
 	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&ADC_Value,NPT);	
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -149,7 +155,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 		if(adcflag==1)
-		{
+		{	
+			LED_BLUE_On;
        //adc标志位、波形频率位初始化
  			adcflag=0;
  			wave_flag=0;
@@ -162,17 +169,16 @@ int main(void)
 
  			HAL_TIM_Base_Stop(&htim3);
  			HAL_ADC_Stop_DMA(&hadc1);
+ 			printf("\r\nFFT Start\r\n");	//输出FFT结果		
 			
  			FFT_test(); //FFT变换并计算幅值
 			
- 			printf("\r\nFFT\r\n");	//输出FFT结果
+// 			for(int i=0;i < NPT / 2;i++)
+// 			{
+// 				printf("%.1f , ",FFT_out[i]);
+// 			}			
 
- 			for(int i=0;i < NPT / 2;i++)
- 			{
- 				printf("%.1f , ",FFT_out[i]);
- 			}			
-
- 			printf("\r\nFFT_OVER\r\n");				
+ 			printf("\r\nFFT OVER\r\n");				
 			
  			wave_flag = find_peak();
 			
@@ -262,8 +268,11 @@ int main(void)
 			wave1_Freq = wave1_index * 1000;
 			wave2_Freq = wave2_index * 1000;
 			
-      printf("wave1:%d    Fre:%d kHz\r\n",based_wave1_state,wave1_index);
-			printf("wave2:%d    Fre:%d kHz\r\n",based_wave2_state,wave2_index);
+			phase1 = FFT_Phase[wave1_index];
+			phase2 = FFT_Phase[wave2_index];
+			
+      printf("wave1:%d    Fre:%d kHz	Phase: %.2f d\r\n",based_wave1_state,wave1_index, phase1);
+			printf("wave2:%d    Fre:%d kHz	Phase: %.2f d\r\n",based_wave2_state,wave2_index, phase2);
 			
 			// Set_DAC_Waveform_AutoHighRes(wave1_Freq, 90.0f, based_wave1_state);
 			// Set_DAC2_Waveform_AutoHighRes(wave2_Freq, 0.0f, based_wave2_state);
