@@ -67,6 +67,8 @@ virtualFolder:
         - path: ../hardware/FFT.h
         - path: ../hardware/intimDAC.c
         - path: ../hardware/intimDAC.h
+        - path: ../hardware/PID.c
+        - path: ../hardware/PID.h
       folders: []
     - name: Middlewares
       files: []

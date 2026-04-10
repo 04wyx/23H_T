@@ -32,6 +32,7 @@
 "23h_t\system_stm32f4xx.o"
 "23h_t\fft.o"
 "23h_t\intimdac.o"
+"23h_t\pid.o"
 "../Middlewares/ST/ARM/DSP/Lib/arm_cortexM4lf_math.lib"
 "23h_t\basicmathfunctions.o"
 "23h_t\bayesfunctions.o"

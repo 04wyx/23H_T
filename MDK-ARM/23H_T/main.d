@@ -54,3 +54,4 @@
 23h_t\main.o: ../hardware/FFT.h
 23h_t\main.o: ../hardware/Config.h
 23h_t\main.o: ../hardware/intimDAC.h
+23h_t\main.o: ../hardware/pid.h

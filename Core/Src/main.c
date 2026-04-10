@@ -35,6 +35,7 @@
 #include "FFT.h"
 #include "Config.h"
 #include "intimDAC.h"
+#include "pid.h"
 
 /* USER CODE END Includes */
 
