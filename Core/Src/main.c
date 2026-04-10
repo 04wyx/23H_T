@@ -72,6 +72,10 @@ uint32_t wave2_Freq = 0;
 
 float phase1 = 0;
 float phase2 = 0;
+
+float dac_output_phase1 = 0.0f; // DAC1 当前设置的相位
+float dac_output_phase2 = 0.0f; // DAC2 当前设置的相位
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -146,6 +150,7 @@ int main(void)
 	printf("START\r\n");
 	HAL_TIM_Base_Start(&htim3);
 	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&ADC_Value,NPT);	
+  Phase_PID_Init(); // 初始化PID参数
 
   /* USER CODE END 2 */
 
@@ -158,11 +163,10 @@ int main(void)
     /* USER CODE BEGIN 3 */
 		// if(adcflag==1)
 		// {	
-			LED_BLUE_On;
        //adc标志位、波形频率位初始化
  			adcflag=0;
  			wave_flag=0;
-
+      LED_BLUE_On;
        //波形的频率索引、类型初始化
  			wave1_index=1;
  			wave2_index=1;
@@ -191,12 +195,22 @@ int main(void)
 			phase1 = FFT_Phase[wave1_index];
 			phase2 = FFT_Phase[wave2_index];
 			
-      		printf("wave1:%d    Fre:%d kHz	Phase: %.2f d\r\n",based_wave1_state,wave1_index, phase1);
-			printf("wave2:%d    Fre:%d kHz	Phase: %.2f d\r\n",based_wave2_state,wave2_index, phase2);
+      printf("wave1:%d    Fre:%d kHz	AMP: %.3f Phase: %.2f d\r\n",based_wave1_state,wave1_index, FFT_Out_wave1, phase1);
+      printf("wave2:%d    Fre:%d kHz	AMP: %.3f Phase: %.2f d\r\n",based_wave2_state,wave2_index, FFT_Out_wave2, phase2);
 			
+      dac_output_phase1 = Phase_PID_Calc(&DAC_Phase_PID, adc_phase1_deg, dac_output_phase1);
+      dac_output_phase2 = Phase_PID_Calc(&DAC_Phase_PID, adc_phase2_deg, dac_output_phase2);
+
 			// Set_DAC_Waveform_AutoHighRes(wave1_Freq, 90.0f, based_wave1_state);
 			// Set_DAC2_Waveform_AutoHighRes(wave2_Freq, 0.0f, based_wave2_state);
-			// printf("DAC Init Over\r\n");
+			// printf("DAC Init Over\r\n");      
+      
+      // 5. 串口输出调试数据
+        printf(">>> PID Update <<<\r\n");
+        printf("ADC_Target_Phase: %.2f | DAC_Current_Phase: %.2f | Error: %.2f\r\n", 
+                adc_phase1_deg, dac_output_phase1, DAC_Phase_PID.error);
+        printf("PID_Output: %.2f\r\n", DAC_Phase_PID.out);
+
 			
 			HAL_Delay(10000);
 			HAL_TIM_Base_Start(&htim3);

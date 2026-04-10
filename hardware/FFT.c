@@ -72,6 +72,7 @@ void FFT_test(void)
         {
             FFT_Phase[i] = atan2f(im, re);  // 弧度
         }
+		FFT_Phase[i] = FFT_Phase[i] * (180.0f / PI);  // 转换为角度
     }
 
 	printf("===== FFT END =====\r\n");
