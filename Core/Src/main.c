@@ -198,17 +198,16 @@ int main(void)
       printf("wave1:%d    Fre:%d kHz	AMP: %.3f Phase: %.2f d\r\n",based_wave1_state,wave1_index, FFT_Out_wave1, phase1);
       printf("wave2:%d    Fre:%d kHz	AMP: %.3f Phase: %.2f d\r\n",based_wave2_state,wave2_index, FFT_Out_wave2, phase2);
 			
-      dac_output_phase1 = Phase_PID_Calc(&DAC_Phase_PID, adc_phase1_deg, dac_output_phase1);
-      dac_output_phase2 = Phase_PID_Calc(&DAC_Phase_PID, adc_phase2_deg, dac_output_phase2);
+      dac_output_phase1 = Phase_PID_Calc(&DAC_Phase_PID, phase1, dac_output_phase1);
+      dac_output_phase2 = Phase_PID_Calc(&DAC_Phase_PID, phase2, dac_output_phase2);
 
 			// Set_DAC_Waveform_AutoHighRes(wave1_Freq, 90.0f, based_wave1_state);
 			// Set_DAC2_Waveform_AutoHighRes(wave2_Freq, 0.0f, based_wave2_state);
 			// printf("DAC Init Over\r\n");      
-      
+
       // 5. 串口输出调试数据
         printf(">>> PID Update <<<\r\n");
-        printf("ADC_Target_Phase: %.2f | DAC_Current_Phase: %.2f | Error: %.2f\r\n", 
-                adc_phase1_deg, dac_output_phase1, DAC_Phase_PID.error);
+        printf("ADC_Target_Phase: %.2f | DAC_Current_Phase: %.2f | Error: %.2f\r\n", phase1, dac_output_phase1, DAC_Phase_PID.error);
         printf("PID_Output: %.2f\r\n", DAC_Phase_PID.out);
 
 			

@@ -1,7 +1,7 @@
 Dependencies for Project '23H_T', Target '23H_T': (DO NOT MODIFY !)
 CompilerVersion: 5060750::V5.06 update 6 (build 750)::.\ARMCC
 F (startup_stm32f407xx.s)(0x69D511BC)(--cpu Cortex-M4.fp.sp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 531" --pd "_RTE_ SETA 1" --pd "STM32F407xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f407xx.lst --xref -o 23h_t\startup_stm32f407xx.o --depend 23h_t\startup_stm32f407xx.d)
-F (../Core/Src/main.c)(0x69D8F973)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/ST/ARM/DSP/Inc -I ../hardware-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_M-o 23h_t\main.o --omf_browse 23h_t\main.crf --depend 23h_t\main.d)
+F (../Core/Src/main.c)(0x69D90357)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/ST/ARM/DSP/Inc -I ../hardware-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_M-o 23h_t\main.o --omf_browse 23h_t\main.crf --depend 23h_t\main.d)
 I (../Core/Inc/main.h)(0x69D50449)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69B94292)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x69CD1A0A)
@@ -54,7 +54,7 @@ I (D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_const_struc
 I (D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_math.h)(0x5E8ED122)
 I (D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_common_tables.h)(0x5E8ED122)
 I (../hardware/FFT.h)(0x69D663EF)
-I (../hardware/Config.h)(0x69D614ED)
+I (../hardware/Config.h)(0x69D90306)
 I (../hardware/intimDAC.h)(0x69C8F477)
 I (../hardware/pid.h)(0x69D8F973)
 F (../Core/Src/gpio.c)(0x69D50400)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/ST/ARM/DSP/Inc -I ../hardware-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_M-o 23h_t\gpio.o --omf_browse 23h_t\gpio.crf --depend 23h_t\gpio.d)
@@ -1118,8 +1118,8 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x69B94292)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x69B94292)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x69B94292)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x69B94292)
-F (..\hardware\Config.h)(0x69D614ED)()
-F (..\hardware\FFT.c)(0x69D663B3)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/ST/ARM/DSP/Inc -I ../hardware-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_M-o 23h_t\fft.o --omf_browse 23h_t\fft.crf --depend 23h_t\fft.d)
+F (..\hardware\Config.h)(0x69D90306)()
+F (..\hardware\FFT.c)(0x69D9031E)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/ST/ARM/DSP/Inc -I ../hardware-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_M-o 23h_t\fft.o --omf_browse 23h_t\fft.crf --depend 23h_t\fft.d)
 I (..\hardware\FFT.h)(0x69D663EF)
 I (../Core/Inc/main.h)(0x69D50449)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x69B94292)
@@ -1168,7 +1168,7 @@ I (D:\STM\KEIL\v\ARM\ARMCC\include\limits.h)(0x5EC775F2)
 I (D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_const_structs.h)(0x5E8ED122)
 I (D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_math.h)(0x5E8ED122)
 I (D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include\arm_common_tables.h)(0x5E8ED122)
-I (..\hardware\Config.h)(0x69D614ED)
+I (..\hardware\Config.h)(0x69D90306)
 F (..\hardware\FFT.h)(0x69D663EF)()
 F (..\hardware\intimDAC.c)(0x69C8F475)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/ST/ARM/DSP/Inc -I ../hardware-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_M-o 23h_t\intimdac.o --omf_browse 23h_t\intimdac.crf --depend 23h_t\intimdac.d)
 I (..\hardware\intimDAC.h)(0x69C8F477)
@@ -1212,7 +1212,7 @@ I (../Core/Inc/tim.h)(0x69CD1A09)
 I (D:\STM\KEIL\v\ARM\ARMCC\include\math.h)(0x5EC77604)
 I (../Core/Inc/usart.h)(0x69CD1A0A)
 I (../Core/Inc/dac.h)(0x69CD1A09)
-I (..\hardware\Config.h)(0x69D614ED)
+I (..\hardware\Config.h)(0x69D90306)
 F (..\hardware\intimDAC.h)(0x69C8F477)()
 F (..\hardware\PID.c)(0x69D8F94F)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/ST/ARM/DSP/Inc -I ../hardware-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_M-o 23h_t\pid.o --omf_browse 23h_t\pid.crf --depend 23h_t\pid.d)
 I (..\hardware\pid.h)(0x69D8F973)
@@ -1252,7 +1252,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h)(0x69B94292)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x69B94292)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x69B94292)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x69B94292)
-I (..\hardware\Config.h)(0x69D614ED)
+I (..\hardware\Config.h)(0x69D90306)
 F (..\hardware\PID.h)(0x69D8F973)()
 F (../Middlewares/ST/ARM/DSP/Lib/arm_cortexM4lf_math.lib)(0x69B94628)()
 F (D:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Source\BasicMathFunctions\BasicMathFunctions.c)(0x5E8ED126)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Middlewares/ST/ARM/DSP/Inc -I ../hardware-I.\RTE\_23H_T-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\Include-ID:\STM\KEIL\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\DSP\PrivateInclude-ID:\STM\KEIL\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__CC_ARM -DARM_MATH_M-o 23h_t\basicmathfunctions.o --omf_browse 23h_t\basicmathfunctions.crf --depend 23h_t\basicmathfunctions.d)
