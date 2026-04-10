@@ -2,7 +2,8 @@
 #include "pid.h"
 
 // 实例化 PID 结构体变量（真正分配内存的地方）
-PhasePID_TypeDef DAC_Phase_PID;
+PhasePID_TypeDef DAC_Phase_PID1;  // 用于DAC通道1 (wave1)
+PhasePID_TypeDef DAC_Phase_PID2;  // 用于DAC通道2 (wave2)
 
 /**
   * @brief  初始化 PID 参数
@@ -10,17 +11,29 @@ PhasePID_TypeDef DAC_Phase_PID;
   * @retval None
   */
 void Phase_PID_Init(void) {
-    // 这里的参数需要根据你的实际系统响应速度进行整定
-    DAC_Phase_PID.Kp = 0.5f;   // 比例系数 
-    DAC_Phase_PID.Ki = 0.01f;  // 积分系数
-    DAC_Phase_PID.Kd = 0.05f;  // 微分系数
-    
-    DAC_Phase_PID.target_phase = 0.0f;
-    DAC_Phase_PID.actual_phase = 0.0f;
-    DAC_Phase_PID.error = 0.0f;
-    DAC_Phase_PID.error_last = 0.0f;
-    DAC_Phase_PID.integral = 0.0f;
-    DAC_Phase_PID.out = 0.0f;
+    // 初始化PID1 (DAC通道1)
+    DAC_Phase_PID1.Kp = 1.0f;   // 比例系数 (增大以加快响应)
+    DAC_Phase_PID1.Ki = 0.02f;  // 积分系数 (适度增大以消除稳态误差)
+    DAC_Phase_PID1.Kd = 0.1f;   // 微分系数 (增大以抑制超调)
+
+    DAC_Phase_PID1.target_phase = 0.0f;
+    DAC_Phase_PID1.actual_phase = 0.0f;
+    DAC_Phase_PID1.error = 0.0f;
+    DAC_Phase_PID1.error_last = 0.0f;
+    DAC_Phase_PID1.integral = 0.0f;
+    DAC_Phase_PID1.out = 0.0f;
+
+    // 初始化PID2 (DAC通道2) - 可以使用相同或不同的参数
+    DAC_Phase_PID2.Kp = 1.0f;
+    DAC_Phase_PID2.Ki = 0.02f;
+    DAC_Phase_PID2.Kd = 0.1f;
+
+    DAC_Phase_PID2.target_phase = 0.0f;
+    DAC_Phase_PID2.actual_phase = 0.0f;
+    DAC_Phase_PID2.error = 0.0f;
+    DAC_Phase_PID2.error_last = 0.0f;
+    DAC_Phase_PID2.integral = 0.0f;
+    DAC_Phase_PID2.out = 0.0f;
 }
 
 /**
@@ -43,26 +56,30 @@ static float Normalize_Phase(float phase_diff) {
 float Phase_PID_Calc(PhasePID_TypeDef *pid, float target, float actual) {
     pid->target_phase = target;
     pid->actual_phase = actual;
-    
-    // 1. 计算误差并标准化
+
+    // 1. 计算误差并标准化 (-180° to 180°)
     pid->error = Normalize_Phase(pid->target_phase - pid->actual_phase);
-    
+
     // 2. 积分累加及积分限幅 (防止积分饱和)
     pid->integral += pid->error;
-    if(pid->integral > 360.0f)  pid->integral = 360.0f;
-    if(pid->integral < -360.0f) pid->integral = -360.0f;
-    
-    // 3. 位置式 PID 计算
-    pid->out += (pid->Kp * pid->error) + 
-                (pid->Ki * pid->integral) + 
-                (pid->Kd * (pid->error - pid->error_last));
-                
-    // 4. 限制最终输出相位在 0-360 度范围内
+    if(pid->integral > 180.0f)  pid->integral = 180.0f;
+    if(pid->integral < -180.0f) pid->integral = -180.0f;
+
+    // 3. 微分项
+    float derivative = pid->error - pid->error_last;
+
+    // 4. PID 计算: 输出 = 实际相位 + Kp*error + Ki*integral + Kd*derivative
+    pid->out = pid->actual_phase +
+               pid->Kp * pid->error +
+               pid->Ki * pid->integral +
+               pid->Kd * derivative;
+
+    // 5. 限制输出相位在 0-360 度范围内
     while(pid->out >= 360.0f) pid->out -= 360.0f;
     while(pid->out < 0.0f)    pid->out += 360.0f;
-    
-    // 5. 保存本次误差，用于下次计算微分
+
+    // 6. 保存本次误差，用于下次计算微分
     pid->error_last = pid->error;
-    
+
     return pid->out;
 }

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//d/STM/project/F4/2023H/23H_T/Core/Core/**)",
+      "Bash(sed -i '205s!^\\\\\\(\\\\t\\\\t\\\\t\\\\\\)// !\\\\1!' main.c)",
+      "Read(//d/STM/project/F4/2023H/23H_T/Core/Inc/**)"
+    ],
+    "additionalDirectories": [
+      "d:\\STM\\project\\F4\\2023H\\23H_T\\Core\\Src",
+      "D:\\STM\\project\\F4\\2023H\\23H_T\\Core\\Core\\Src"
+    ]
+  }
+}

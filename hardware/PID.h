@@ -23,7 +23,8 @@ typedef struct {
 
 /* ==================== 外部变量声明 ==================== */
 // 使用 extern 声明，让包含此头文件的其他 .c 文件都能使用这个全局变量
-extern PhasePID_TypeDef DAC_Phase_PID;
+extern PhasePID_TypeDef DAC_Phase_PID1;  // 用于DAC通道1 (wave1)
+extern PhasePID_TypeDef DAC_Phase_PID2;  // 用于DAC通道2 (wave2)
 
 /* ==================== 函数声明 ==================== */
 void Phase_PID_Init(void);
